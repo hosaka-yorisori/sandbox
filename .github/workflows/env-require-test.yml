@@ -1,0 +1,23 @@
+name: Manual Approval Example
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        run: echo "Running tests..."
+
+      - name: Await manual approval
+        if: success()
+        with:
+          environment: prod
+
+      - name: Continue after approval
+        run: echo "Tests passed and manually approved, continuing deployment..."
